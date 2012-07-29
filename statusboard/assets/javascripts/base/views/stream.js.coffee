@@ -15,7 +15,7 @@ Zepto ($) ->
 			@$el.children(".item").empty().remove()
 
 			$view = @$el
-			items = @collection.first 20
+			items = @collection.last 20
 
 			for item in items
 				stream_item = new Statusboard.Views.StreamItem
