@@ -12,10 +12,12 @@ Zepto ($) ->
 		render: ->
 			child_views = @child_views
 
-			@$el.children().empty().remove()
+			@$el.children(".item").empty().remove()
 
 			$view = @$el
-			@collection.each (item) ->
+			items = @collection.first 20
+
+			for item in items
 				stream_item = new Statusboard.Views.StreamItem
 					model: item
 				child_views.push stream_item

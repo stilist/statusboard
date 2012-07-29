@@ -1,154 +1,112 @@
 @import "base/mixins";
 
-* {
-  margin:0;
-  padding:0;
-}
-html, body {
-  height:100%;
-}
-body {
-  background-color:#000;
-  color:#949aa3;
-  cursor:default;
-  font-size:14px;
-  margin:0;
-  padding:0;
-}
-a {
-  text-decoration:none;
-}
-
-.clear {
-  clear:both;
-}
-
 #wrapper {
-  height:100%;
+  padding-bottom:1px;
+}
 
-  #header {
-    cursor:default;
-    font-size:18px;
-    font-weight:500;
-    letter-spacing:1px;
-    padding:27px 30px;
-    text-align:center;
-    text-shadow:0 -1px 1px #000;
+#siteSubtitle {
+  .hashtag {
+    color:#8f2f51;
+  }
+  .hashtag:before {
+    content:"#";
+  }
+}
 
-    .headline {
-      color:#fff;
-      cursor:default;
-      font-size:39px;
-      font-weight:300;
-      letter-spacing:1px;
-      line-height:41px;
-      margin-bottom:15px;
-      text-transform:uppercase;
+#pageBody {
+  padding-bottom:50px;
+}
+
+#stream {
+  .item {
+    @include block_rel_left;
+    // fallback in case there's no image
+    @include inner_shadow(1px, 1px, 0, 0, rgba(255, 255, 255, 0.2));
+    background-color:#000;
+    height:364px;
+    padding:10px 15px;
+    overflow:hidden;
+    width:360px;
+
+    .image {
+      @include block_abs;
+      @include inner_shadow(1px, 1px, 0, 0, rgba(255, 255, 255, 0.2));
+      background-repeat:no-repeat;
+      height:100%;
+      left:0;
+      top:0;
+      width:100%;
+      background-size:cover;
+      -moz-background-size:cover;
+      -webkit-background-size:cover;
+      z-index:1;
     }
 
-    .instructions {
-      color:#aaa;
+    .text {
+      background-color:rgba(0, 0, 0, 0.6);
+      color:#eee;
+      font-size:24px;
+      font-weight:300;
+      line-height:32px;
+      position:relative;
+      z-index:2;
 
       .hashtag {
-        color:#fff;
-      }
-      .hashtag:before {
-        content:"#";
+        color:#974a63;
       }
     }
-  }
 
-  #stream {
-    margin-top:20px;
+    .meta {
+      @include block_abs;
+      @include vertical_gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.9));
+      bottom:0;
+      content:" ";
+      height:80px;
+      left:0;
+      width:100%;
+      z-index:3;
 
-    .item {
-      @include block_rel_left;
-      // fallback in case there's no image
-      @include inner_shadow(1px, 1px, 0, 0, rgba(255, 255, 255, 0.2));
-      height:364px;
-      padding:10px 15px;
-      overflow:hidden;
-      width:354px;
-
-      .image {
+      .avatar, .user {
         @include block_abs;
-        @include inner_shadow(1px, 1px, 0, 0, rgba(255, 255, 255, 0.2));
-        background-repeat:no-repeat;
-        height:100%;
-        left:0;
-        top:0;
-        width:100%;
-        background-size:cover;
-        -moz-background-size:cover;
-        -webkit-background-size:cover;
-        z-index:1;
-      }
-
-      .text {
-        background-color:rgba(0, 0, 0, 0.6);
-        color:#eee;
-        font-size:24px;
-        font-weight:300;
-        line-height:32px;
-        position:relative;
-        z-index:2;
-
-        .hashtag {
-          color:#b196dd;
-        }
-      }
-
-      .meta {
-        @include block_abs;
-        @include vertical_gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.9));
-        bottom:0;
-        content:" ";
-        height:80px;
-        left:0;
-        width:100%;
-        z-index:3;
-
-        .avatar, .user {
-          @include block_abs;
-          bottom:10px;
-          z-index:5;
-        }
-
-        .avatar {
-          @include inner_shadow(0, 0, 2px, 0, rgba(0, 0, 0, 0.2));
-          @include block_abs;
-          @include round(3px);
-          background-repeat:no-repeat;
-          left:10px;
-          margin-right:10px;
-        }
-
-        .avatar.x30 {
-          @include avatar_size(30px);
-        }
-
-        .user {
-          color:#aaa;
-          font-size:16pt;
-          font-weight:300;
-          left:50px;
-          line-height:27px;
-          width:282px;
-        }
-      }
-
-      .service {
-        @include block_abs;
-        @include services_sprite;
         bottom:10px;
-        height:24px;
-        right:10px;
-        width:25px;
-        z-index:10;
+        z-index:5;
       }
+
+      .avatar {
+        @include inner_shadow(0, 0, 2px, 0, rgba(0, 0, 0, 0.2));
+        @include block_abs;
+        @include round(3px);
+        background-repeat:no-repeat;
+        left:10px;
+        margin-right:10px;
+      }
+
+      .avatar.x30 {
+        @include avatar_size(30px);
+      }
+
+      .user {
+        color:#aaa;
+        font-size:16pt;
+        font-weight:300;
+        left:50px;
+        line-height:27px;
+        width:282px;
+      }
+    }
+
+    .service {
+      @include block_abs;
+      @include services_sprite;
+      bottom:10px;
+      height:24px;
+      right:10px;
+      width:25px;
+      z-index:10;
     }
   }
 }
+
 
 .item.foursquare {
   .service {

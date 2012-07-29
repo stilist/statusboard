@@ -26,7 +26,7 @@ Zepto ($) ->
 
 			stream = new Statusboard.Views.Stream
 				collection: @collection
-			@$el.append stream.render().el
+			@$el.find("#pageBody").append stream.render().el
 			@child_views.push stream
 
 			@

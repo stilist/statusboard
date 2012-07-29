@@ -1,9 +1,41 @@
-#header
-  .headline
-    {{headline}}
+#canvasWrapper
+	#canvas
+		#pageHeaderWrapper
+			#pageHeader
+				#bannerAreaWrapper
+					#bannerArea
+						#siteTitleWrapper
+							%h1#siteTitle
+								%a{ :href => "//weaver2gorman.com" }
+									{{headline}}
+							#siteSubtitle.h1subtitle
+								Post to Twitter and Instagram with the hashtag
+								%span.hashtag<
+									{{hashtag}}
+								and check in with Foursquare.
+				#navigationBottom
+					.horizontalNavigationBar
+						%ul.content-navigation
+							%li.module
+								%a{ :href => "//weaver2gorman.com" }
+									Home
+							%li.module
+								%a{ :href => "//weaver2gorman.com/information" }
+									Information
+							%li.module
+								%a{ :href => "//weaver2gorman.com/hotels/" }
+									Hotels
+							%li.module
+								%a{ :href => "//weaver2gorman.com/registry/" }
+									Registry
+							%li.module
+								%a{ :href => "//weaver2gorman.com/contact/" }
+									Contact
+							%li.module
+								%a{ :href => "//ceremony.weaver2gorman.com" }
+									Share your story
+						.clearer
 
-  .instructions
-    Post to Twitter and Instagram with the hashtag
-    %span.hashtag<
-      {{hashtag}}
-    and check in with Foursquare.
+	#pageBodyWrapper
+		#pageBody
+			.clearer
