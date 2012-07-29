@@ -4,6 +4,8 @@
 
 {{#if image}}
 %span.image{ :style => "background-image:url('{{image}}');" }
+{{else}}
+%span.no_image
 {{/if}}
 
 %section.meta

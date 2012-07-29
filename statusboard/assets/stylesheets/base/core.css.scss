@@ -50,18 +50,26 @@ body {
     overflow:hidden;
     width:330px;
 
-    .image {
+    .image, .no_image {
       @include block_abs;
       @include inner_shadow(1px, 1px, 0, 0, rgba(255, 255, 255, 0.2));
-      background-repeat:no-repeat;
       height:100%;
       left:0;
       top:0;
       width:100%;
+      z-index:1;
+    }
+
+    .image {
+      background-repeat:no-repeat;
       background-size:cover;
       -moz-background-size:cover;
       -webkit-background-size:cover;
-      z-index:1;
+    }
+
+    .no_image {
+      background:url("//weaver2gorman.com/layout/images/joy_bg.gif");
+      opacity:0.4;
     }
 
     .text {
