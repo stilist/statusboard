@@ -57,10 +57,6 @@
     background-image:url("/assets/" + $name + "@2x." + $type);
   }
 }
-@mixin base_sprite {
-  @include retina_sprite("base/global_sprite", "png", 200, 190);
-  @include replace;
-}
 @mixin services_sprite {
   @include retina_sprite("base/services_sprite", "png", 100, 24);
   @include replace;
@@ -146,16 +142,6 @@
 //FONTS
 @mixin helvetica {
   font-family:"Helvetica", Arial, sans-serif;
-}
-@mixin helvetica_neue {
-  @include helvetica;
-  font-family:"Helvetica Neue", "Helvetica", Arial, sans-serif;
-}
-@mixin proximaNova {
-  font-family:"Proxima Nova", "proxima-nova", "Helvetica", "Arial", sans-serif;
-}
-@mixin museeBold {
-  font-family:MuseeBold, Georgia, serif;
 }
 
 //BOX SHADOWS

@@ -14,17 +14,15 @@ Zepto ($) ->
 			_fetch = (collection) ->
 				collection.fetch
 					add: true
-					dataType: "jsonp"
 
-			Statusboard.Collections.applications.each (item) ->
-				app = item.toJSON()
-
-				app.State.autorefresh = setInterval ->
-					_fetch(app.Collections.items)
-				, app.State.autorefresh_delay
+			Statusboard.State.autorefresh = setInterval ->
+				_fetch Statusboard.Collections.items
+			, Statusboard.State.autorefresh_delay
 
 		render: ->
-			@$el.html @template {}
+			@$el.html @template
+				hashtag: Statusboard.State.hashtag
+				headline: Statusboard.State.headline
 
 			stream = new Statusboard.Views.Stream
 				collection: @collection

@@ -1,0 +1,15 @@
+/ Twitter
+%span.text
+  {{highlight_hashtag comment}}
+
+{{#if image}}
+%span.image{ :style => "background-image:url('{{image}}');" }
+{{/if}}
+
+%section.meta
+  %span{ :class => "avatar x30", :style => "background-image:url({{avatar}});" }
+
+  %span.user
+    @{{username}}
+
+%span.service

@@ -24,6 +24,4 @@ Zepto ($) ->
 
 				$view.prepend $stream_item
 
-				$stream_item.addClass item.get "statusboard_type"
-
 			@

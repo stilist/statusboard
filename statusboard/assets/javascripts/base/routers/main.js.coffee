@@ -4,11 +4,7 @@ Zepto ($) ->
 			"": "index"
 
 		index: ->
-			Statusboard.Collections.applications.each (item) ->
-				app = item.toJSON()
-
-				app.Collections.items.fetch
-					dataType: "jsonp"
+			Statusboard.Collections.items.fetch()
 
 			wrapper = new Statusboard.Views.Main
 				collection: Statusboard.Collections.items

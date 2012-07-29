@@ -1,11 +1,9 @@
-#logo
-
 #header
   .headline
-    We the Media is five.
+    {{headline}}
 
   .instructions
     Post to Twitter and Instagram with the hashtag
-    %span.hashtag
-      \#wtmisfive
+    %span.hashtag<
+      {{hashtag}}
     and check in with Foursquare.

@@ -8,7 +8,6 @@ html, body {
   height:100%;
 }
 body {
-  @include proximaNova;
   background-color:#000;
   color:#949aa3;
   cursor:default;
@@ -27,15 +26,6 @@ a {
 #wrapper {
   height:100%;
 
-  #logo {
-    @include block_abs;
-    @include base_sprite;
-    height:90px;
-    left:0;
-    top:0;
-    width:140px;
-  }
-
   #header {
     cursor:default;
     font-size:18px;
@@ -46,7 +36,6 @@ a {
     text-shadow:0 -1px 1px #000;
 
     .headline {
-      @include museeBold;
       color:#fff;
       cursor:default;
       font-size:39px;
@@ -62,6 +51,9 @@ a {
 
       .hashtag {
         color:#fff;
+      }
+      .hashtag:before {
+        content:"#";
       }
     }
   }
@@ -155,5 +147,23 @@ a {
         z-index:10;
       }
     }
+  }
+}
+
+.item.foursquare {
+  .service {
+    background-position:-75px 0;
+  }
+}
+
+.item.instagram {
+  .service {
+    background-position:-50px 0;
+  }
+}
+
+.item.twitter {
+  .service {
+    background-position:-25px 0;
   }
 }

@@ -9,13 +9,19 @@ group :statusboard_app do
 	gem "sinatra-synchrony", :require => "sinatra/synchrony"
 	gem "sinatra-static-assets", :require => "sinatra/static_assets"
 
+	# database
+	gem "sinatra-activerecord", :require => "sinatra/activerecord"
+	gem "pg"
+
+	# services
 	gem "foursquare2"
+
+	# HTML5 cache manifest
+	gem "rack-offline", :require => "rack/offline"
 
 	# content types
 	gem "sprockets"
 	gem "coffee-script"
-	# `:coffeescript` HAML filter
-	gem "coffee-filter"
 	gem "sprockets-helpers", "~> 0.2"
 	gem "sprockets-sass", "~> 0.5"
 	gem "sass"

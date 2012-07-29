@@ -1,6 +1,13 @@
 Zepto ($) ->
 	Statusboard.State.debug = false
 
-	# Set up manually because the base app doesn't get it automatically from
-	# `register_application`.
 	Statusboard.State.bindings = []
+
+	Statusboard.State.autorefresh_delay = switch window.location.host
+		when "ceremony.weaver2gorman.com", "localhost:9010"
+			delay = seconds_to_ms 10
+		else
+			delay = seconds_to_ms 45
+
+	Statusboard.State.hashtag = "weaver2gorman"
+	Statusboard.State.headline = "Rachel & David"
