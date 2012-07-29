@@ -1,20 +1,43 @@
 @import "base/mixins";
 
+body {
+  background:#222;
+}
+
 #wrapper {
   padding-bottom:1px;
-}
 
-#siteSubtitle {
-  .hashtag {
-    color:#8f2f51;
+  #pageHeader {
+    @include block_rel;
+    @include shadow_with_inner(0, 0, 5px, 0, rgba(0, 0, 0, 0.5), 0, 0, 1px, 0, rgba(0, 0, 0, 0.3));
+    background-color:#fff;
+    border-bottom:10px solid #efefef;
+    margin:0;
+    padding:0 15px;
+    z-index:5;
   }
-  .hashtag:before {
-    content:"#";
-  }
-}
 
-#pageBody {
-  padding-bottom:50px;
+  #siteTitleWrapper {
+    padding-top:40px;
+
+    #siteTitle {
+      span {
+        color:#7f7f7f;
+      }
+    }
+
+    #siteSubtitle {
+      color:#7f7f7f;
+      text-transform:none;
+
+      .hashtag {
+        color:#8f2f51;
+      }
+      .hashtag:before {
+        content:"#";
+      }
+    }
+  }
 }
 
 #stream {
@@ -22,11 +45,10 @@
     @include block_rel_left;
     // fallback in case there's no image
     @include inner_shadow(1px, 1px, 0, 0, rgba(255, 255, 255, 0.2));
-    background-color:#000;
-    height:364px;
+    height:340px;
     padding:10px 15px;
     overflow:hidden;
-    width:360px;
+    width:330px;
 
     .image {
       @include block_abs;
@@ -44,7 +66,7 @@
 
     .text {
       background-color:rgba(0, 0, 0, 0.6);
-      color:#eee;
+      color:#efefef;
       font-size:24px;
       font-weight:300;
       line-height:32px;
@@ -52,17 +74,19 @@
       z-index:2;
 
       .hashtag {
-        color:#974a63;
+        color:#ff7da6;
       }
     }
 
     .meta {
       @include block_abs;
-      @include vertical_gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.9));
+      // @include vertical_gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.9));
+      background:#000;
       bottom:0;
       content:" ";
-      height:80px;
+      height:50px;
       left:0;
+      opacity:0.75;
       width:100%;
       z-index:3;
 
@@ -86,7 +110,7 @@
       }
 
       .user {
-        color:#aaa;
+        color:#fff;
         font-size:16pt;
         font-weight:300;
         left:50px;
