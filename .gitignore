@@ -5,5 +5,8 @@
 vendor/bundle/
 vendor/gems/
 
+# CarrierWave
+uploads/
+
 # Asset exhaust
 .sass-cache

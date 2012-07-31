@@ -19,6 +19,8 @@ group :statusboard_app do
 
 	# services
 	gem "foursquare2"
+	gem "instagram"
+	gem "twitter"
 
 	# HTML5 cache manifest
 	gem "rack-offline", :require => "rack/offline"

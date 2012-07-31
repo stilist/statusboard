@@ -16,90 +16,88 @@ class StatusboardApp < Sinatra::Base
 	configure do
 		set :backend_apps, %w(foursquare instagram twitter)
 
+		set :hashtag, ENV["HASHTAG"] || ""
+
 		# https://github.com/janko-m/sinatra-activerecord
 		set :database, ENV["HEROKU_POSTGRESQL_PINK_URL"] || ENV["DATABASE_URL"] || ""
 		puts "Using database: #{ENV["HEROKU_POSTGRESQL_PINK_URL"] || ENV["DATABASE_URL"] || ""}"
+
+		ActiveRecord::Base.include_root_in_json = false
 	end
 
 	get "/" do
 		erb "", :layout_engine => :haml
 	end
 
+	get "/twitter" do
+		items = Twitter.search(hashtag, :include_entities => true).results
+
+		items.each do |item|
+			data = {
+				service: "twitter",
+				username: item.from_user,
+				real_name: item.from_user_name,
+				comment: item.text,
+				timestamp: item.created_at,
+				avatar: item.profile_image_url,
+				permalink: "http://twitter.com/#{item.from_user}/#{item.id}"
+			}
+
+			# TODO handle photo booth
+			# https://github.com/wtm/statusboard/blob/wtmisfive/statusboard/assets/javascripts/apps/twitter/collections/items.js.coffee
+			unless item.media.empty?
+				data.merge!({ :remote_image_url => item.media.first[:media_url] })
+			end
+
+			save_story data
+		end
+
+		erb ""
+	end
+
+	get "/photo_booth" do
+	end
+
+	get "/instagram" do
+		items = Instagram.tag_recent_media hashtag
+
+		items["data"].each do |item|
+			data = {
+				service: "instagram",
+				username: item[:user][:username],
+				real_name: item[:user][:full_name],
+				remote_image_url: item[:images][:standard_resolution][:url],
+				comment: item[:caption][:text],
+				timestamp: Time.at(item[:created_time].to_i),
+				avatar: item[:user][:profile_picture],
+				permalink: item[:link]
+			}
+
+			save_story data
+		end
+
+		erb ""
+	end
+
 	get "/stories" do
 		content_type "application/json"
 
-		fake_data = {
-			service: settings.backend_apps.sample,
-			username: random_string(20).gsub(/\s+/, ""),
-			real_name: random_string(25),
-			remote_image_url: random_image,
-			comment: random_comment,
-			timestamp: Time.now.iso8601,
-			image: random_image,
-			avatar: random_avatar,
-			permalink: ""
-		}
-
-		story = Story.new fake_data
-
-		if story.save
-			puts " * saved"
-		else
-			story.errors.each { |k,v| puts " * #{k}: #{v}" }
-		end
+		stories = Story.limit(10).order("timestamp ASC").all
 
 		puts
-		puts "** Transmitted data (#{Time.now.iso8601})"
-		puts story.to_json
+		puts "** Transmitted at #{Time.now.iso8601}"
 
-		body story.to_json
+		body stories.to_json
 	end
 
 	private
 
-	# http://stackoverflow.com/a/88341/672403
-	def random_string max_length=50
-		length = rand max_length
-
-		characters = [" ", " ", " ", " ", ".", "!"]
-		characters << ("a".."z").to_a
-		characters << ("A".."Z").to_a
-		(0...length).map { characters.flatten.sample }.join
-	end
-
-	def random_avatar
-		images = [
-			"http://images.instagram.com/profiles/profile_9396960_75sq_1315883516.jpg",
-			"http://twimg0-a.akamaihd.net/profile_images/562360154/gorpic1209.png",
-			"http://twimg0-a.akamaihd.net/profile_images/966149353/c867b0ac-574a-49fb-bb76-cce37fdad322.png"
-		]
-
-		include_image = rand(25) != 1
-
-		include_image ? images.sample : ""
-	end
-
-	def random_image
-		images = [
-			"http://sphotos-b.xx.fbcdn.net/hphotos-snc6/196132_10151010546580102_1581486358_n.jpg",
-			"http://distilleryimage0.s3.amazonaws.com/fa261eceb77f11e19894123138140d8c_7.jpg",
-			"http://distilleryimage6.s3.amazonaws.com/31e6e75cb78111e1a8761231381b4856_7.jpg",
-			"http://distilleryimage9.s3.amazonaws.com/6782376eb8c511e18cf91231380fd29b_7.jpg",
-			"http://sphotos-a.xx.fbcdn.net/hphotos-snc7/s720x720/305429_10150423159500102_1992348656_n.jpg"
-		]
-
-		include_image = rand(3) != 1
-
-		include_image ? images.sample : ""
-	end
-
-	def random_comment
-		hashtag = "weaver2gorman"
-		length = 140 - hashtag.length - 3
-
-		comment = random_string length
-
-		offset = rand (comment.length - 1)
-		comment.insert offset, " ##{hashtag} "
+	def save_story data = {}
+		story = Story.new data
+		if story.save
+			puts " * saved"
+		else
+			story.errors.each { |k,v| puts "   #{k}: #{v}" }
+		end
 	end
 end

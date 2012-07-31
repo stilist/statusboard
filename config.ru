@@ -38,6 +38,15 @@ CarrierWave.configure do |config|
 	config.permissions = 0644
 end
 
+Twitter.configure do |config|
+	config.consumer_key = ENV["TWITTER_CONSUMER_KEY"] || ""
+	config.consumer_key = ENV["TWITTER_CONSUMER_SECRET"] || ""
+end
+
+Instagram.configure do |config|
+	config.client_id = ENV["INSTAGRAM_KEY"] || ""
+	config.client_secret = ENV["INSTAGRAM_SECRET"] || ""
+end
 
 map "/" do
 	run StatusboardApp

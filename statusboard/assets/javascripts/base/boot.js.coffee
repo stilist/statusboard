@@ -9,5 +9,4 @@ Zepto ($) ->
 		else
 			delay = seconds_to_ms 45
 
-	Statusboard.State.hashtag = "weaver2gorman"
 	Statusboard.State.headline = "Rachel & David <span>& you</span>"
