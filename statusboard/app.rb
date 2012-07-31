@@ -3,6 +3,9 @@ class StatusboardApp < Sinatra::Base
 	register Sinatra::StaticAssets
 	register Sinatra::ActiveRecordExtension
 
+	# database models
+	require File.expand_path(File.join(File.dirname(__FILE__), "models.rb"))
+
 	# for generating timestamp in `fake_data`
 	require "time"
 
@@ -10,10 +13,12 @@ class StatusboardApp < Sinatra::Base
 	configure do
 		set :backend_apps, %w(foursquare instagram twitter)
 
-		# https://github.com/janko-m/sinatra-activerecord
-		set :database, ENV["HEROKU_POSTGRESQL_PINK_URL"] || ENV["DATABASE_URL"] || ""
+		unless database
+			# https://github.com/janko-m/sinatra-activerecord
+			set :database, ENV["HEROKU_POSTGRESQL_PINK_URL"] || ENV["DATABASE_URL"] || ""
 
-		puts "Using database: #{database}"
+			puts "Using database: #{database}"
+		end
 	end
 
 	get "/" do
@@ -23,21 +28,30 @@ class StatusboardApp < Sinatra::Base
 	get "/stories" do
 		content_type "application/json"
 
-		fake_data = <<-DATA
-			{
-				"id": #{rand 50000},
-				"service": "#{settings.backend_apps.sample}",
-				"username": "#{random_string(20).gsub(/\s+/, "")}",
-				"name": "#{random_string 25}",
-				"comment": "#{random_comment}",
-				"timestamp": "#{Time.now.iso8601}",
-				"image": "#{random_image}",
-				"avatar": "#{random_avatar}",
-				"permalink": ""
-			}
-		DATA
+		fake_data = {
+			service: settings.backend_apps.sample,
+			username: random_string(20).gsub(/\s+/, ""),
+			real_name: random_string(25),
+			comment: random_comment,
+			timestamp: Time.now.iso8601,
+			image: random_image,
+			avatar: random_avatar,
+			permalink: ""
+		}
 
-		body fake_data
+		story = Story.new fake_data
+
+		if story.save
+			puts " * saved"
+		else
+			story.errors.each { |k,v| puts " * #{k}: #{v}" }
+		end
+
+		puts
+		puts "** Transmitted data (#{Time.now.iso8601})"
+		puts story.to_json
+
+		body story.to_json
 	end
 
 	private
