@@ -2,8 +2,8 @@
 %span.text
   {{highlight_hashtag comment}}
 
-{{#if image}}
-%span.image{ :style => "background-image:url('{{image}}');" }
+{{#if image.url}}
+%span.image{ :style => "background-image:url('{{image.url}}');" }
 {{else}}
 %span.no_image
 {{/if}}

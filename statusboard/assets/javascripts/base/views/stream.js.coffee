@@ -12,7 +12,7 @@ Zepto ($) ->
 		render: ->
 			child_views = @child_views
 
-			@$el.children(".item").empty().remove()
+			@$el.children().empty().remove()
 
 			$view = @$el
 			items = @collection.last 20

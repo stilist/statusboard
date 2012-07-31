@@ -8,7 +8,6 @@ Zepto ($) ->
 			_.bindAll @, "render"
 
 			@bindings = Statusboard.State.bindings
-			@bindTo @collection, "reset", @render
 			@child_views = []
 
 			_fetch = (collection) ->
