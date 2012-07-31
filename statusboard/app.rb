@@ -16,12 +16,9 @@ class StatusboardApp < Sinatra::Base
 	configure do
 		set :backend_apps, %w(foursquare instagram twitter)
 
-		unless database
-			# https://github.com/janko-m/sinatra-activerecord
-			set :database, ENV["HEROKU_POSTGRESQL_PINK_URL"] || ENV["DATABASE_URL"] || ""
-
-			puts "Using database: #{database}"
-		end
+		# https://github.com/janko-m/sinatra-activerecord
+		set :database, ENV["HEROKU_POSTGRESQL_PINK_URL"] || ENV["DATABASE_URL"] || ""
+		puts "Using database: #{ENV["HEROKU_POSTGRESQL_PINK_URL"] || ENV["DATABASE_URL"] || ""}"
 	end
 
 	get "/" do
