@@ -30,7 +30,7 @@ class StatusboardApp < Sinatra::Base
 	end
 
 	get "/twitter" do
-		items = Twitter.search(hashtag, :include_entities => true).results
+		items = Twitter.search(settings.hashtag, :include_entities => true).results
 
 		items.each do |item|
 			data = {
@@ -40,7 +40,8 @@ class StatusboardApp < Sinatra::Base
 				comment: item.text,
 				timestamp: item.created_at,
 				avatar: item.profile_image_url,
-				permalink: "http://twitter.com/#{item.from_user}/#{item.id}"
+				permalink: "http://twitter.com/#{item.from_user}/#{item.id}",
+				original_id: item.id
 			}
 
 			# TODO handle photo booth
@@ -59,7 +60,7 @@ class StatusboardApp < Sinatra::Base
 	end
 
 	get "/instagram" do
-		items = Instagram.tag_recent_media hashtag
+		items = Instagram.tag_recent_media settings.hashtag
 
 		items["data"].each do |item|
 			data = {
@@ -67,10 +68,11 @@ class StatusboardApp < Sinatra::Base
 				username: item[:user][:username],
 				real_name: item[:user][:full_name],
 				remote_image_url: item[:images][:standard_resolution][:url],
-				comment: item[:caption][:text],
+				comment: (item[:caption] && item[:caption][:text]) ? item[:caption][:text] : "",
 				timestamp: Time.at(item[:created_time].to_i),
 				avatar: item[:user][:profile_picture],
-				permalink: item[:link]
+				permalink: item[:link],
+				original_id: item[:id]
 			}
 
 			save_story data
@@ -94,10 +96,18 @@ class StatusboardApp < Sinatra::Base
 
 	def save_story data = {}
 		story = Story.new data
-		if story.save
-			puts " * saved"
+
+		existing = Story.where(:service => story.service)
+				.where(:original_id => story.original_id.to_s).all
+
+		if existing.empty?
+			if story.save
+				puts " * saved"
+			else
+				story.errors.each { |k,v| puts "   #{k}: #{v}" }
+			end
 		else
-			story.errors.each { |k,v| puts "   #{k}: #{v}" }
+			puts " * existing"
 		end
 	end
 end
