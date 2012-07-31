@@ -3,6 +3,9 @@ class StatusboardApp < Sinatra::Base
 	register Sinatra::StaticAssets
 	register Sinatra::ActiveRecordExtension
 
+	require File.expand_path(File.join(File.dirname(__FILE__), "story_image_uploader.rb"))
+	require "carrierwave/orm/activerecord"
+
 	# database models
 	require File.expand_path(File.join(File.dirname(__FILE__), "models.rb"))
 
@@ -32,6 +35,7 @@ class StatusboardApp < Sinatra::Base
 			service: settings.backend_apps.sample,
 			username: random_string(20).gsub(/\s+/, ""),
 			real_name: random_string(25),
+			remote_image_url: random_image,
 			comment: random_comment,
 			timestamp: Time.now.iso8601,
 			image: random_image,
@@ -68,9 +72,9 @@ class StatusboardApp < Sinatra::Base
 
 	def random_avatar
 		images = [
-			"//images.instagram.com/profiles/profile_9396960_75sq_1315883516.jpg",
-			"//twimg0-a.akamaihd.net/profile_images/562360154/gorpic1209.png",
-			"//twimg0-a.akamaihd.net/profile_images/966149353/c867b0ac-574a-49fb-bb76-cce37fdad322.png"
+			"http://images.instagram.com/profiles/profile_9396960_75sq_1315883516.jpg",
+			"http://twimg0-a.akamaihd.net/profile_images/562360154/gorpic1209.png",
+			"http://twimg0-a.akamaihd.net/profile_images/966149353/c867b0ac-574a-49fb-bb76-cce37fdad322.png"
 		]
 
 		include_image = rand(25) != 1
@@ -80,11 +84,11 @@ class StatusboardApp < Sinatra::Base
 
 	def random_image
 		images = [
-			"//sphotos-b.xx.fbcdn.net/hphotos-snc6/196132_10151010546580102_1581486358_n.jpg",
-			"//distilleryimage0.s3.amazonaws.com/fa261eceb77f11e19894123138140d8c_7.jpg",
-			"//distilleryimage6.s3.amazonaws.com/31e6e75cb78111e1a8761231381b4856_7.jpg",
-			"//distilleryimage9.s3.amazonaws.com/6782376eb8c511e18cf91231380fd29b_7.jpg",
-			"//sphotos-a.xx.fbcdn.net/hphotos-snc7/s720x720/305429_10150423159500102_1992348656_n.jpg"
+			"http://sphotos-b.xx.fbcdn.net/hphotos-snc6/196132_10151010546580102_1581486358_n.jpg",
+			"http://distilleryimage0.s3.amazonaws.com/fa261eceb77f11e19894123138140d8c_7.jpg",
+			"http://distilleryimage6.s3.amazonaws.com/31e6e75cb78111e1a8761231381b4856_7.jpg",
+			"http://distilleryimage9.s3.amazonaws.com/6782376eb8c511e18cf91231380fd29b_7.jpg",
+			"http://sphotos-a.xx.fbcdn.net/hphotos-snc7/s720x720/305429_10150423159500102_1992348656_n.jpg"
 		]
 
 		include_image = rand(3) != 1

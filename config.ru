@@ -27,6 +27,18 @@ map "/assets" do
 	run environment
 end
 
+CarrierWave.configure do |config|
+	config.fog_credentials = {
+		:provider => "AWS",
+		:aws_access_key_id => ENV["AWS_KEY"] || "",
+		:aws_secret_access_key => ENV["AWS_SECRET"] || ""
+	}
+
+	config.fog_directory = "weaver2gorman"
+	config.permissions = 0644
+end
+
+
 map "/" do
 	run StatusboardApp
 end
