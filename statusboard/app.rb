@@ -19,9 +19,11 @@ class StatusboardApp < Sinatra::Base
 		set :hashtag, ENV["HASHTAG"] || ""
 
 		# https://github.com/janko-m/sinatra-activerecord
-		set :database, ENV["HEROKU_POSTGRESQL_PINK_URL"] || ENV["DATABASE_URL"] || ""
-		puts "Using database: #{ENV["HEROKU_POSTGRESQL_PINK_URL"] || ENV["DATABASE_URL"] || ""}"
+		database_url = ENV["HEROKU_POSTGRESQL_PINK_URL"] || ENV["DATABASE_URL"] || ""
+		set :database, database_url
+		puts " * Using database: #{database_url}"
 
+		# kill `:story => { … }` on serialized `Story` rows
 		ActiveRecord::Base.include_root_in_json = false
 	end
 
