@@ -31,8 +31,17 @@ class StatusboardApp < Sinatra::Base
 		erb "", :layout_engine => :haml
 	end
 
+	# Hack for service polling
+	get "/fetch" do
+		erb "", :layout_engine => :haml
+	end
+
 	get "/twitter" do
+		puts "** Polling Twitter"
+
 		items = Twitter.search(settings.hashtag, :include_entities => true).results
+
+		puts " * #{items.length} items (Twitter)"
 
 		items.each do |item|
 			data = {
@@ -55,14 +64,16 @@ class StatusboardApp < Sinatra::Base
 			save_story data
 		end
 
-		erb ""
-	end
-
-	get "/photo_booth" do
+		content_type "application/json"
+		body "{}"
 	end
 
 	get "/instagram" do
+		puts "** Polling Instagram"
+
 		items = Instagram.tag_recent_media settings.hashtag
+
+		puts " * #{items.length} items (Instagram)"
 
 		items["data"].each do |item|
 			data = {
@@ -80,7 +91,8 @@ class StatusboardApp < Sinatra::Base
 			save_story data
 		end
 
-		erb ""
+		content_type "application/json"
+		body "{}"
 	end
 
 	get "/stories" do
