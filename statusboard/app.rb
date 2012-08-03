@@ -55,8 +55,6 @@ class StatusboardApp < Sinatra::Base
 				original_id: item.id
 			}
 
-			puts "url:"
-			puts item.urls.inspect
 			if item.media.empty?
 				# https://github.com/stilist/statusboard/blob/wtmisfive/statusboard/assets/javascripts/apps/twitter/collections/items.js.coffee
 				if item.from_user == settings.dedicated_twitter_username
