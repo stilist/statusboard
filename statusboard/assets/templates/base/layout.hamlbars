@@ -9,6 +9,9 @@
 				%span.hashtag<
 					{{hashtag}}
 
+			%span.address
+				ceremony.weaver2gorman.com
+
 #pageBodyWrapper
 	#pageBody
 		.clearer

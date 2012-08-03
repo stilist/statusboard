@@ -99,11 +99,11 @@ body {
       @include block_abs;
       // @include vertical_gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.9));
       background:#000;
+      background-color:rgba(0, 0, 0. 0.75);
       bottom:0;
       content:" ";
       height:50px;
       left:0;
-      opacity:0.75;
       width:100%;
       z-index:3;
 
