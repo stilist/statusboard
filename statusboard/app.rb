@@ -14,9 +14,9 @@ class StatusboardApp < Sinatra::Base
 
 	# http://stackoverflow.com/a/4525933/672403
 	configure do
-		set :backend_apps, %w(foursquare instagram twitter)
-
-		set :hashtag, ENV["HASHTAG"] || ""
+		%w(dedicated_twitter_username hashtag).each do |setting|
+			set setting.to_sym, ENV[setting.upcase] || ""
+		end
 
 		# https://github.com/janko-m/sinatra-activerecord
 		database_url = ENV["HEROKU_POSTGRESQL_PINK_URL"] || ENV["DATABASE_URL"] || ""
