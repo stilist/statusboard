@@ -18,7 +18,6 @@ group :statusboard_app do
 	gem "fog"
 
 	# services
-	gem "foursquare2"
 	gem "instagram"
 	gem "twitter"
 
