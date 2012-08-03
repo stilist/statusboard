@@ -55,9 +55,16 @@ class StatusboardApp < Sinatra::Base
 				original_id: item.id
 			}
 
-			# TODO handle photo booth
-			# https://github.com/wtm/statusboard/blob/wtmisfive/statusboard/assets/javascripts/apps/twitter/collections/items.js.coffee
-			unless item.media.empty?
+			puts "url:"
+			puts item.entities.urls
+			if item.media.empty?
+				# https://github.com/stilist/statusboard/blob/wtmisfive/statusboard/assets/javascripts/apps/twitter/collections/items.js.coffee
+				if item.from_user == settings.dedicated_twitter_username
+					if item.entities && item.entities.urls && items.entities.urls[0] && item.entities.urls[0].expanded_url
+						data.merge!({ :remote_image_url => item.entities.urls[0].expanded_url })
+					end
+				end
+			else
 				data.merge!({ :remote_image_url => item.media.first[:media_url] })
 			end
 
