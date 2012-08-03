@@ -18,9 +18,14 @@ body {
   }
 
   #siteTitleWrapper {
-    padding-top:40px;
+    padding-bottom:25px;
+    padding-top:20px;
 
     #siteTitle {
+      &:after {
+        content:".";
+      }
+
       span {
         color:#7f7f7f;
       }
@@ -33,9 +38,10 @@ body {
 
       .hashtag {
         color:#8f2f51;
-      }
-      .hashtag:before {
-        content:"#";
+
+        &:before {
+          content:"#";
+        }
       }
     }
   }

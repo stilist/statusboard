@@ -8,7 +8,6 @@
 				Post to Twitter and Instagram with the hashtag
 				%span.hashtag<
 					{{hashtag}}
-				and check in with Foursquare.
 
 #pageBodyWrapper
 	#pageBody
