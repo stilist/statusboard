@@ -41,6 +41,8 @@ body {
 
         &:before {
           content:"#";
+          display:inline-block;
+          margin-left:-0.3em;
         }
       }
     }
