@@ -107,7 +107,7 @@ class StatusboardApp < Sinatra::Base
 	get "/stories" do
 		content_type "application/json"
 
-		stories = Story.limit(10).order("timestamp ASC").all
+		stories = Story.limit(10).order("timestamp DESC, id DESC").all
 
 		puts
 		puts "** Transmitted at #{Time.now.iso8601}"
