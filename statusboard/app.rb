@@ -15,7 +15,9 @@ class StatusboardApp < Sinatra::Base
 	# http://stackoverflow.com/a/4525933/672403
 	configure do
 		%w(dedicated_twitter_username hashtag).each do |setting|
-			set setting.to_sym, ENV[setting.upcase] || ""
+			value = ENV[setting.upcase] || ""
+			set setting.to_sym, value
+			puts " * Using #{setting}: #{value}"
 		end
 
 		# https://github.com/janko-m/sinatra-activerecord
