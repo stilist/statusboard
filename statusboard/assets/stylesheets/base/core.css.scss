@@ -48,7 +48,7 @@ body {
     }
 
     .address {
-      .block_abs;
+      @include block_abs;
       font-size:18px;
       right:15px;
       text-align:right;
