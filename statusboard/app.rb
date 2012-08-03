@@ -124,13 +124,9 @@ class StatusboardApp < Sinatra::Base
 				.where(:original_id => story.original_id.to_s).all
 
 		if existing.empty?
-			if story.save
-				puts " * saved"
-			else
+			unless story.save
 				story.errors.each { |k,v| puts "   #{k}: #{v}" }
 			end
-		else
-			puts " * existing"
 		end
 	end
 end
