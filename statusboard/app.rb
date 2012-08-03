@@ -73,7 +73,7 @@ class StatusboardApp < Sinatra::Base
 
 		items = Instagram.tag_recent_media settings.hashtag
 
-		puts " * #{items.length} items (Instagram)"
+		puts " * #{items["data"].length} items (Instagram)"
 
 		items["data"].each do |item|
 			data = {
