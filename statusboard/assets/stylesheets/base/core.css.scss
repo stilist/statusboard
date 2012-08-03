@@ -22,10 +22,6 @@ body {
     padding-top:20px;
 
     #siteTitle {
-      &:after {
-        content:".";
-      }
-
       span {
         color:#7f7f7f;
       }
@@ -35,6 +31,10 @@ body {
       color:#7f7f7f;
       font-size:16px;
       text-transform:none;
+
+      &:after {
+        content:".";
+      }
 
       .hashtag {
         color:#8f2f51;
