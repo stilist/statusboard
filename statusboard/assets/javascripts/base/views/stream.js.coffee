@@ -18,6 +18,8 @@ Zepto ($) ->
 			items = @collection.toJSON()
 
 			for item in items
+				console.log item
+
 				stream_item = new Statusboard.Views.StreamItem
 					model: item
 				child_views.push stream_item
