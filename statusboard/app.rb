@@ -115,7 +115,7 @@ class StatusboardApp < Sinatra::Base
 			# Search results use a different format
 			if item[:user]
 				user = {
-					avatar: item[:user][:profile_image_url]
+					avatar: item[:user][:profile_image_url],
 					real_name: item[:user][:name],
 					username: item[:user][:screen_name]
 				}
