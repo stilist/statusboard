@@ -41,7 +41,7 @@ class StatusboardApp < Sinatra::Base
 	get "/photobooth" do
 		puts "** Photo booth"
 
-		items = Twitter.user(settings.dedicated_twitter_username)
+		items = Twitter.user_timeline(settings.dedicated_twitter_username, :count => 200)
 
 		puts "x"
 		puts items.inspect
