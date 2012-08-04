@@ -17,7 +17,7 @@ task :server do
 end
 
 # hacks!
-task :fix_twitter_permalinks
+task :fix_twitter_permalinks do
 	# Load gems
 	require "rubygems"
 	require "bundler"
