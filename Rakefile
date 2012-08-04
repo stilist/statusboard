@@ -27,7 +27,7 @@ task :fix_twitter_permalinks do
 	require File.expand_path(File.join(File.dirname(__FILE__), "statusboard", "app.rb"))
 
 	items = Story.where(:service => "twitter").all
-	items.all.each do |item|
+	items.each do |item|
 		item.permalink = "http://twitter.com/#{item.from_user}/statuses/#{item.id}"
 		item.save
 	end
