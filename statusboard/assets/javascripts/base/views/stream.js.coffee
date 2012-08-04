@@ -15,9 +15,8 @@ Zepto ($) ->
 			@$el.children().empty().remove()
 
 			$view = @$el
-			items = @collection.toJSON()
 
-			for item in items
+			for item in @collection
 				console.log item
 
 				stream_item = new Statusboard.Views.StreamItem
