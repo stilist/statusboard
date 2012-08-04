@@ -43,9 +43,10 @@ class StatusboardApp < Sinatra::Base
 
 		items = Twitter.user_timeline(settings.dedicated_twitter_username, :count => 200)
 
-		puts "x"
-		puts items.inspect
-		puts "y"
+		parse_tweets items
+
+		content_type "application/json"
+		body "{}"
 	end
 
 	get "/twitter" do
@@ -53,33 +54,7 @@ class StatusboardApp < Sinatra::Base
 
 		items = Twitter.search(settings.hashtag, :include_entities => true).results
 
-		puts " * #{items.length} items (Twitter)"
-
-		items.each do |item|
-			data = {
-				service: "twitter",
-				username: item.from_user,
-				real_name: item.from_user_name,
-				comment: item.text,
-				timestamp: item.created_at,
-				avatar: item.profile_image_url,
-				permalink: "http://twitter.com/#{item.from_user}/#{item.id}",
-				original_id: item.id
-			}
-
-			if item.media.empty?
-				# https://github.com/stilist/statusboard/blob/wtmisfive/statusboard/assets/javascripts/apps/twitter/collections/items.js.coffee
-				if item.from_user == settings.dedicated_twitter_username
-					if item.urls && !items.urls.empty? && item.urls[0].expanded_url
-						data.merge!({ :remote_image_url => item.urls[0].expanded_url })
-					end
-				end
-			else
-				data.merge!({ :remote_image_url => item.media.first[:media_url] })
-			end
-
-			save_story data
-		end
+		parse_tweets items
 
 		content_type "application/json"
 		body "{}"
@@ -124,6 +99,36 @@ class StatusboardApp < Sinatra::Base
 	end
 
 	private
+
+	def parse_tweets items = []
+		puts " * #{items.length} items (Twitter)"
+
+		items.each do |item|
+			data = {
+				service: "twitter",
+				username: item.from_user,
+				real_name: item.from_user_name,
+				comment: item.text,
+				timestamp: item.created_at,
+				avatar: item.profile_image_url,
+				permalink: "http://twitter.com/#{item.from_user}/#{item.id}",
+				original_id: item.id
+			}
+
+			if item.media.empty?
+				# https://github.com/stilist/statusboard/blob/wtmisfive/statusboard/assets/javascripts/apps/twitter/collections/items.js.coffee
+				if item.from_user == settings.dedicated_twitter_username
+					if item.urls && !items.urls.empty? && item.urls[0].expanded_url
+						data.merge!({ :remote_image_url => item.urls[0].expanded_url })
+					end
+				end
+			else
+				data.merge!({ :remote_image_url => item.media.first[:media_url] })
+			end
+
+			save_story data
+		end
+	end
 
 	def save_story data = {}
 		story = Story.new data
