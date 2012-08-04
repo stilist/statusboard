@@ -161,28 +161,29 @@ body {
   }
 }
 
-
-.item.foursquare {
-  .service {
-    background-position:-75px 0;
-  }
-}
-
-.item.instagram {
-  .service {
-    background-position:-50px 0;
-  }
-}
-
-.item.twitter {
-  .service {
-    background-position:-25px 0;
+#stream {
+  .item.foursquare {
+    .service {
+      background-position:-75px 0;
+    }
   }
 
-  .image {
-    background-repeat:no-repeat;
-    background-size:contain;
-    -moz-background-size:contain;
-    -webkit-background-size:contain;
+  .item.instagram {
+    .service {
+      background-position:-50px 0;
+    }
+  }
+
+  .item.twitter {
+    .service {
+      background-position:-25px 0;
+    }
+
+    .image {
+      background-repeat:no-repeat;
+      background-size:contain;
+      -moz-background-size:contain;
+      -webkit-background-size:contain;
+    }
   }
 }
