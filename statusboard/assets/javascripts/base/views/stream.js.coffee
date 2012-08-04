@@ -16,7 +16,7 @@ Zepto ($) ->
 
 			$view = @$el
 
-			for item in @collection
+			@collection.each (item) ->
 				console.log item
 
 				stream_item = new Statusboard.Views.StreamItem
