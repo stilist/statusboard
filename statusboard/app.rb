@@ -122,6 +122,7 @@ class StatusboardApp < Sinatra::Base
 				}
 			else
 				puts "----------- timeline"
+				puts item[:user].inspect
 				user = {
 					username: item[:user][:screen_name],
 					real_name: item[:user][:name]
