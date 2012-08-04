@@ -89,13 +89,12 @@ class StatusboardApp < Sinatra::Base
 	end
 
 	get "/stories" do
-		content_type "application/json"
-
 		stories = Story.limit(10).order("timestamp DESC, id DESC").all
 
 		puts
 		puts "** Transmitted at #{Time.now.iso8601}"
 
+		content_type "application/json"
 		body stories.to_json
 	end
 
@@ -139,6 +138,7 @@ class StatusboardApp < Sinatra::Base
 
 		if existing.empty?
 			unless story.save
+				puts " * Didn't save because:"
 				story.errors.each { |k,v| puts "   #{k}: #{v}" }
 			end
 		end
