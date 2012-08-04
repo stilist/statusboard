@@ -15,8 +15,10 @@ Zepto ($) ->
 			@$el.children().empty().remove()
 
 			$view = @$el
+			console.log @collection
+			items = @collection.last 20
 
-			for item in @collection
+			for item in items
 				stream_item = new Statusboard.Views.StreamItem
 					model: item
 				child_views.push stream_item
