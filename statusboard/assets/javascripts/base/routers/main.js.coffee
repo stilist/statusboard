@@ -15,8 +15,9 @@ Zepto ($) ->
 		# Hack for service polling
 		poller: ->
 			_fetch = ->
-				$.getJSON "/twitter"
 				$.getJSON "/instagram"
+				$.getJSON "/photobooth"
+				$.getJSON "/twitter"
 
 			setInterval _fetch, Statusboard.State.autorefresh_delay
 

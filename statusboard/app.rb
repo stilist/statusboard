@@ -126,7 +126,7 @@ class StatusboardApp < Sinatra::Base
 				data.merge!({ :remote_image_url => item.media.first[:media_url] })
 			end
 
-			# save_story data
+			save_story data
 		end
 	end
 
