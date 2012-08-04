@@ -108,7 +108,7 @@ class StatusboardApp < Sinatra::Base
 				service: "twitter",
 				comment: item.text,
 				timestamp: item.created_at,
-				permalink: "http://twitter.com/#{item.from_user}/#{item.id}",
+				permalink: "http://twitter.com/#{item.from_user}/statuses/#{item.id}",
 				original_id: item.id
 			}
 
