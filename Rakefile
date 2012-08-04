@@ -28,7 +28,7 @@ task :fix_twitter_permalinks do
 
 	items = Story.where(:service => "twitter").all
 	items.each do |item|
-		item.permalink = "http://twitter.com/#{item.from_user}/statuses/#{item.id}"
+		item.permalink = "http://twitter.com/#{item.username}/statuses/#{item.original_id}"
 		item.save
 	end
 end
