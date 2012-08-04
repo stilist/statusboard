@@ -43,7 +43,9 @@ class StatusboardApp < Sinatra::Base
 
 		items = Twitter.user(settings.dedicated_twitter_username)
 
+		puts "x"
 		puts items.inspect
+		puts "y"
 	end
 
 	get "/twitter" do
