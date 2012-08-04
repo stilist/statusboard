@@ -38,6 +38,14 @@ class StatusboardApp < Sinatra::Base
 		erb "", :layout_engine => :haml
 	end
 
+	get "/photobooth" do
+		puts "** Photo booth"
+
+		items = Twitter.user(settings.dedicated_twitter_username)
+
+		puts items.inspect
+	end
+
 	get "/twitter" do
 		puts "** Polling Twitter"
 
