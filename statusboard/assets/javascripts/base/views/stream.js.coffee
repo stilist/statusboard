@@ -16,7 +16,7 @@ Zepto ($) ->
 
 			$view = @$el
 
-			for item in items
+			for item in @collection
 				stream_item = new Statusboard.Views.StreamItem
 					model: item
 				child_views.push stream_item
