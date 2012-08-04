@@ -114,22 +114,17 @@ class StatusboardApp < Sinatra::Base
 			}
 
 			# Search results use a different format
-			if item[:from_user]
-				puts "------- search"
-				user = {
-					username: item.from_user,
-					real_name: item.from_user_name
-				}
-			else
-				puts "----------- timeline"
-				puts item[:user].inspect
+			if item[:user]
 				user = {
 					username: item[:user][:screen_name],
 					real_name: item[:user][:name]
 				}
+			else
+				user = {
+					username: item.from_user,
+					real_name: item.from_user_name
+				}
 			end
-			puts "-_L#ILIF user:"
-			puts user
 			data.merge!(user)
 
 			if item.media.empty?
