@@ -1,5 +1,6 @@
 Zepto ($) ->
 	class Statusboard.Views.StreamItem extends Backbone.UnbindingView
+		tagName: "a"
 		className: "item"
 
 		initialize: ->
@@ -12,5 +13,7 @@ Zepto ($) ->
 			@$el.html template @model.toJSON()
 
 			@$el.addClass @model.get "service"
+
+			@$el.prop "href", @model.get("permalink")
 
 			@
