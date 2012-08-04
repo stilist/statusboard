@@ -106,14 +106,26 @@ class StatusboardApp < Sinatra::Base
 		items.each do |item|
 			data = {
 				service: "twitter",
-				username: item.from_user,
-				real_name: item.from_user_name,
 				comment: item.text,
 				timestamp: item.created_at,
 				avatar: item.profile_image_url,
 				permalink: "http://twitter.com/#{item.from_user}/#{item.id}",
 				original_id: item.id
 			}
+
+			# Search results use a different format
+			if item[:from_user]
+				user = {
+					username: item.from_user,
+					real_name: item.from_user_name
+				}
+			else
+				user = {
+					username: item[:user][:screen_name],
+					real_name: item[:user][:name]
+				}
+			end
+			data.merge!(user)
 
 			if item.media.empty?
 				# https://github.com/stilist/statusboard/blob/wtmisfive/statusboard/assets/javascripts/apps/twitter/collections/items.js.coffee
