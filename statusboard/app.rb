@@ -118,6 +118,9 @@ class StatusboardApp < Sinatra::Base
 			if item.media.empty?
 				# https://github.com/stilist/statusboard/blob/wtmisfive/statusboard/assets/javascripts/apps/twitter/collections/items.js.coffee
 				if item.from_user == settings.dedicated_twitter_username
+					puts "-----------"
+					puts item.inspect
+
 					if item.urls && !items.urls.empty? && item.urls[0].expanded_url
 						data.merge!({ :remote_image_url => item.urls[0].expanded_url })
 					end
@@ -126,7 +129,7 @@ class StatusboardApp < Sinatra::Base
 				data.merge!({ :remote_image_url => item.media.first[:media_url] })
 			end
 
-			save_story data
+			# save_story data
 		end
 	end
 
