@@ -89,7 +89,7 @@ class StatusboardApp < Sinatra::Base
 	end
 
 	get "/stories" do
-		stories = Story.limit(10).order("timestamp DESC, id DESC").all
+		stories = Story.order("timestamp DESC, id DESC").all
 
 		puts
 		puts "** Transmitted at #{Time.now.iso8601}"
