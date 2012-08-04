@@ -108,7 +108,6 @@ class StatusboardApp < Sinatra::Base
 				service: "twitter",
 				comment: item.text,
 				timestamp: item.created_at,
-				avatar: item.profile_image_url,
 				permalink: "http://twitter.com/#{item.from_user}/#{item.id}",
 				original_id: item.id
 			}
@@ -116,13 +115,15 @@ class StatusboardApp < Sinatra::Base
 			# Search results use a different format
 			if item[:user]
 				user = {
-					username: item[:user][:screen_name],
-					real_name: item[:user][:name]
+					avatar: item[:user][:profile_image_url]
+					real_name: item[:user][:name],
+					username: item[:user][:screen_name]
 				}
 			else
 				user = {
+					real_name: item.from_user_name,
+					avatar: item.profile_image_url,
 					username: item.from_user,
-					real_name: item.from_user_name
 				}
 			end
 			data.merge!(user)
