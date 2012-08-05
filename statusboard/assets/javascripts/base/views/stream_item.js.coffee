@@ -15,5 +15,6 @@ Zepto ($) ->
 			@$el.addClass @model.get "service"
 
 			@$el.prop "href", @model.get("permalink")
+			@$el.prop "target", "_blank"
 
 			@
